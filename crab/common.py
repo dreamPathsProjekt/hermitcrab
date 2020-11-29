@@ -14,6 +14,14 @@ def get_cwd():
     )
 
 
+def get_crabfile():
+    return os.path.join(get_cwd(), '.crab.yml')
+
+
+def get_crabstate():
+    return os.path.join(get_cwd(), '.crabstate.yml')
+
+
 def activate_azure_env(environment: str):
     azure_path = os.path.join(get_home(), f'.azure-{environment}')
     if not os.path.exists(azure_path):
