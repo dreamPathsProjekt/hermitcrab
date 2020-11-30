@@ -3,6 +3,7 @@ import subprocess
 import shutil
 import crayons
 import yaml
+import re
 
 
 def get_home():
@@ -39,6 +40,7 @@ def yaml_write(filename: str, data: dict):
     with open(filename, mode='w') as yaml_file:
         if not data:
             print(crayons.red(f'Trying to write empty data to {filename}'))
+            return
         yaml.safe_dump(data, yaml_file)
 
 
@@ -61,19 +63,21 @@ def activate_azure_env(environment: str = ''):
     return azure_path
 
 
-def list_azure_env():
+def list_azure_env(crab_data: dict):
+    crab_envs = [env.get('name') for env in crab_data['project']['environments']]
     azure_paths = list(filter(lambda path: '.azure' in path, os.listdir(get_home())))
-    current_env_path = os.getenv('AZURE_CONFIG_DIR')
-    current_env = current_env_path.split(get_home())[-1].strip(os.sep) if current_env_path else ''
+    current = crab_data['project']['current']
     environments = {}
 
     for path in azure_paths:
-        current = (path == current_env)
         if path == '.azure':
             environment = 'default'
         else:
-            environment = path.strip('.azure-')
-        environments[environment] = current
+            environment = path.replace('.azure-', '')
+        environments[environment] = {
+            'is_crab': environment in crab_envs,
+            'is_current': environment == current
+        }
     return environments
 
 
@@ -88,3 +92,17 @@ def destroy_azure_env(environment: str):
         return
     shutil.rmtree(azure_path)
     print(crayons.green(f'Azure environment {environment} deleted from {azure_path}.'))
+
+
+def is_valid_filename(filename: str):
+    invalid = re.compile(r'[^0-9a-zA-Z-._]+')
+    invalid_chars = invalid.findall(filename)
+    return not invalid_chars, invalid_chars
+
+
+def normalize_filename(filename: str):
+    valid, invalid_chars = is_valid_filename(filename)
+    if not valid:
+        print(crayons.red(f'Filename contains invalid characters {invalid_chars}'))
+        return
+    return filename.replace('.', '-').replace('_', '-')
