@@ -1,74 +1,15 @@
-# Project Specific #
-####################
-*.vdi
-*.iso
-*.vmdk
-*.ovf
-packer_cache
-*tfstate*
-maestro/env
-kitchen/site-cookbooks
-.kitchen
-*.retry
+# Binaries for programs and plugins
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
 
-# Junk #
-########
-*.py[cod]
-*.egg-info
-.DS_Store
+# Test binary, built with `go test -c`
+*.test
 
-# PyCharm
-.idea/
+# Output of the go coverage tool, specifically when used with LiteIDE
+*.out
 
-/bin
-/eggs
-/etc
-/parts
-/var
-/src
-/.virtualenv
-/develop-eggs
-/node_modules
-
-/coverage
-/.coverage
-
-/.installed.cfg
-/.mr.developer.cfg
-/local*.cfg
-
-/enable_*
-
-/.project
-/.pydevproject
-
-# NetBeans
-/nbproject
-
-# Sublime Text
-/*.sublime-*
-/.codeintel
-/data
-
-# Emacs
-\#*#
-
-# VsCode
-.vscode/
-
-# Working files/folders
-/-*
-
-# Magix
-.delivery
-.terraform
-
-# Secrets
-secrets
-env/
-*.env
-*.key
-*.crt
-*.pem
-*.pub
-*.bak
+# Dependency directories (remove the comment below to include it)
+# vendor/
