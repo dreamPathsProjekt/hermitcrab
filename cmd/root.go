@@ -19,13 +19,14 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
+
 package cmd
 
 import (
 	"fmt"
 	"os"
 
-	aurora "github.com/logrusorgru/aurora/v3"
+	"github.com/logrusorgru/aurora/v3"
 	homedir "github.com/mitchellh/go-homedir"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
@@ -39,9 +40,12 @@ var rootCmd = &cobra.Command{
 	Short: "Use Azure KeyVault to upload/download sensitive files in Git Repo or folder",
 	Long: `Hermitcrab is a CLI tool that helps with the management of multiple
 secret files inside a Git Repo or plain folder and their batch upload/download
-to Azure KeyVault.`,
+to Azure KeyVault.
+
+`,
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println(aurora.Green("Hello CLI"))
+		fmt.Println(aurora.Green("Hermitcrab"))
+		// cmd.Help()
 	},
 }
 
@@ -61,7 +65,7 @@ func init() {
 	// Cobra supports persistent flags, which, if defined here,
 	// will be global for your application.
 
-	rootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is $HOME/.hermitcrab.yaml)")
+	rootCmd.PersistentFlags().StringVarP(&cfgFile, "config", "c", "", "config file (default is $HOME/.hermitcrab.yaml)")
 
 	// Cobra also supports local flags, which will only run
 	// when this action is called directly.
