@@ -23,10 +23,11 @@ package cmd
 
 import (
 	"fmt"
-	"github.com/spf13/cobra"
 	"os"
 
+	aurora "github.com/logrusorgru/aurora/v3"
 	homedir "github.com/mitchellh/go-homedir"
+	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 )
 
@@ -35,16 +36,13 @@ var cfgFile string
 // rootCmd represents the base command when called without any subcommands
 var rootCmd = &cobra.Command{
 	Use:   "hermitcrab",
-	Short: "A brief description of your application",
-	Long: `A longer description that spans multiple lines and likely contains
-examples and usage of using your application. For example:
-
-Cobra is a CLI library for Go that empowers applications.
-This application is a tool to generate the needed files
-to quickly create a Cobra application.`,
-	// Uncomment the following line if your bare application
-	// has an action associated with it:
-	//	Run: func(cmd *cobra.Command, args []string) { },
+	Short: "Use Azure KeyVault to upload/download sensitive files in Git Repo or folder",
+	Long: `Hermitcrab is a CLI tool that helps with the management of multiple
+secret files inside a Git Repo or plain folder and their batch upload/download
+to Azure KeyVault.`,
+	Run: func(cmd *cobra.Command, args []string) {
+		fmt.Println(aurora.Green("Hello CLI"))
+	},
 }
 
 // Execute adds all child commands to the root command and sets flags appropriately.
